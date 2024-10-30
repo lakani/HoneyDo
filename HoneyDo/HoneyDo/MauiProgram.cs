@@ -1,10 +1,10 @@
-﻿using HoneyDo.Shared.Services;
+﻿using HoneyDo.Shared.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace HoneyDo
 {
     //TODO: Add badge count for # of uncompleted tasks.
-    
+
     public static class MauiProgram
     {
         public static MauiApp CreateMauiApp()

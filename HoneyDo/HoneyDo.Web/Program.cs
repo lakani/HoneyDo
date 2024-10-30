@@ -1,6 +1,7 @@
-using HoneyDo.Shared.Services;
+using HoneyDo.Shared.Interfaces;
 using HoneyDo.Web.Components;
 using HoneyDo.Web.Services;
+using Blazored.LocalStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+//Use Blazored OSS library for browser-local storage
+builder.Services.AddBlazoredLocalStorage();
+
 // Add device-specific services used by the HoneyDo.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
+builder.Services.AddScoped<ILocalStorage, LocalStorage>();
+builder.Services.AddSingleton<IPhotoManager, PhotoManager>();
 
 var app = builder.Build();
 

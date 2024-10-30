@@ -1,4 +1,4 @@
-namespace HoneyDo.Shared.Services
+namespace HoneyDo.Shared.Interfaces
 {
     public interface IFormFactor
     {

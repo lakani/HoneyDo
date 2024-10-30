@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using Shared.Services
 @using Shared.Models
+@using Shared.Interfaces
 @using Microsoft.AspNetCore.Components.QuickGrid
 @inject IFormFactor FormFactor
 @inject ILocalStorage LocalStorage
@@ -21,7 +22,7 @@
     </TemplateColumn>
     <PropertyColumn Property="@(item => item.DueDate)" Format="yyyy-MM-dd" Sortable="true" />
     <PropertyColumn Property="@(item => item.IsComplete)" Title="Complete?" Sortable="true" />   
-@{#if WINDOWS || MACCATALYST }
+@{#if !ANDROID && !IOS }
     <PropertyColumn Property="@(item => item.Description)" Sortable="true"/>
     <PropertyColumn Property="@(item => item.AssignedTo)" Sortable="true"/>
     <PropertyColumn Property="@(item => item.CreatedBy)" Sortable="true"/>

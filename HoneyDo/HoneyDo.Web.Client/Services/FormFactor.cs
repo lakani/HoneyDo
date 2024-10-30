@@ -1,4 +1,4 @@
-using HoneyDo.Shared.Services;
+using HoneyDo.Shared.Interfaces;
 
 namespace HoneyDo.Web.Client.Services
 {

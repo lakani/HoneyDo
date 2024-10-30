@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HoneyDo.Shared.Services   
+namespace HoneyDo.Shared.Interfaces
 {
-    public interface IPhotoManager 
+    public interface IPhotoManager
     {
         public Task<string> TakePhotoAsync();
         public Task<string> PickPhotoAsync();
-   
+
     }
 }
