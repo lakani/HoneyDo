@@ -1,0 +1,105 @@
+﻿@page "/"
+@using Shared.Services
+@using Shared.Models
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject IFormFactor FormFactor
+@inject ILocalStorage LocalStorage
+@inject NavigationManager NavigationManager
+
+<PageTitle>"Honey Do" Items</PageTitle>
+
+<h1>"Honey Do" Items</h1>
+
+<button class="btn btn-primary" @onclick="Add">Add New Task</button>
+<p>
+    Show completed tasks: <input type="checkbox" @onclick="FilterChanged" /> 
+</p>
+<QuickGrid Items="@filteredHoneyDos" class="quickgrid">
+    <TemplateColumn Title="Task" Sortable="true">
+        @context.Task
+        <div class="click-area" @onclick="() => Edit(context)"></div>
+    </TemplateColumn>
+    <PropertyColumn Property="@(item => item.DueDate)" Format="yyyy-MM-dd" Sortable="true" />
+    <PropertyColumn Property="@(item => item.IsComplete)" Title="Complete?" Sortable="true" />   
+@{#if WINDOWS || MACCATALYST }
+    <PropertyColumn Property="@(item => item.Description)" Sortable="true"/>
+    <PropertyColumn Property="@(item => item.AssignedTo)" Sortable="true"/>
+    <PropertyColumn Property="@(item => item.CreatedBy)" Sortable="true"/>
+@{#endif}
+</QuickGrid>
+@* 
+Selected Task: @selected?.Task
+@{#if IOS || ANDROID}
+<p>
+@selected?.Description  
+</p>
+@{#endif} *@
+
+<style>
+    tr {
+    position: relative;
+    }
+
+    tr:hover {
+    background-color: rgba(0, 0, 1, 0.1);
+    }
+
+    .click-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;        
+    }
+</style>
+
+@code {
+
+    private IQueryable<HoneyDoModel> honeyDos;
+    private IQueryable<HoneyDoModel> filteredHoneyDos;
+    private HoneyDoModel? selected;
+    private bool showCompleted = false;
+
+    protected override void OnInitialized()
+    {
+        honeyDos = HoneyDoService.GetModel(LocalStorage)
+                                  .AsQueryable()
+                                  .OrderBy(item => item.DueDate);
+
+        //filteredHoneyDos = honeyDos;
+        filteredHoneyDos = honeyDos.Where(item => !item.IsComplete);
+     
+    }
+
+    private void Save()
+    {
+        HoneyDoService.SaveModel(LocalStorage);
+    }
+
+    private void Edit(HoneyDoModel model)
+    {
+        selected = model;
+        NavigationManager.NavigateTo($"/edit/{model.Id}");
+    }
+
+    private void Add()
+    {        
+        NavigationManager.NavigateTo($"/add");
+    }
+
+    private void FilterChanged()
+    {        
+        showCompleted = !showCompleted;
+        if (showCompleted)
+        {
+            //Show all
+            filteredHoneyDos = honeyDos.Where(item => true);
+        }
+        else
+        {
+            filteredHoneyDos = honeyDos.Where(item => !item.IsComplete);
+        }        
+    }
+
+}

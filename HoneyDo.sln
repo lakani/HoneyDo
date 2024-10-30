@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35410.144 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyDo", "HoneyDo\HoneyDo\HoneyDo.csproj", "{592F499A-35C7-400B-938E-A1CEB9CF7759}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyDo.Shared", "HoneyDo\HoneyDo.Shared\HoneyDo.Shared.csproj", "{D93C8574-9EBB-46DF-9D0C-807A027314CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyDo.Web", "HoneyDo\HoneyDo.Web\HoneyDo.Web.csproj", "{3C2EED39-FB9F-4757-B479-BF6CD3F8BB20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyDo.Web.Client", "HoneyDo\HoneyDo.Web.Client\HoneyDo.Web.Client.csproj", "{53187D60-C848-473E-864C-1F3CD4C33849}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{592F499A-35C7-400B-938E-A1CEB9CF7759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592F499A-35C7-400B-938E-A1CEB9CF7759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592F499A-35C7-400B-938E-A1CEB9CF7759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592F499A-35C7-400B-938E-A1CEB9CF7759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D93C8574-9EBB-46DF-9D0C-807A027314CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93C8574-9EBB-46DF-9D0C-807A027314CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93C8574-9EBB-46DF-9D0C-807A027314CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93C8574-9EBB-46DF-9D0C-807A027314CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C2EED39-FB9F-4757-B479-BF6CD3F8BB20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2EED39-FB9F-4757-B479-BF6CD3F8BB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C2EED39-FB9F-4757-B479-BF6CD3F8BB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2EED39-FB9F-4757-B479-BF6CD3F8BB20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53187D60-C848-473E-864C-1F3CD4C33849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53187D60-C848-473E-864C-1F3CD4C33849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53187D60-C848-473E-864C-1F3CD4C33849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53187D60-C848-473E-864C-1F3CD4C33849}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

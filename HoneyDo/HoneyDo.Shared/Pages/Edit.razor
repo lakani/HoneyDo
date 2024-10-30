@@ -1,0 +1,115 @@
+﻿@page "/edit/{id}"
+@page "/add"
+@using Shared.Services
+@using Shared.Models
+@inject NavigationManager NavigationManager
+@inject ILocalStorage LocalStorage
+@inject IPhotoManager PhotoManager
+
+
+<PageTitle>Honey Do</PageTitle>
+
+<h1>"Honey Do" Task</h1>
+
+<EditForm class="form-control" Model="@honeyDo" @ref=form>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label class="col-form-label" for="Task">Task</label>
+        <InputText id="Task" class="form-control" @bind-Value="@honeyDo.Task" />
+    </div>
+    <div class="form-group">
+        <label class="col-form-label" for="Description">Description</label>
+        <InputText id="Description" class="form-control" @bind-Value="@honeyDo.Description" />
+    </div>
+    <div class="form-group">
+        <label class="col-form-label" for="DueDate">Due Date</label>
+        <InputDate id="DueDate" class="form-control" @bind-Value="@honeyDo.DueDate" />
+    </div>
+    <p>
+        <label class="col-form-label" for="IsComplete">Completed?</label>
+        <InputCheckbox id="IsComplete" @bind-Value="@honeyDo.IsComplete" />
+    </p>
+
+    @{#if ANDROID || IOS || WINDOWS }
+    <table>
+        <tr>
+            <td>
+                @{#if ANDROID || IOS }
+                <button class="btn btn-secondary" @onclick="@TakePhoto">Photo</button>
+                @{#endif}
+            </td>
+            <td><button class="btn btn-secondary" @onclick="@PickPhoto">Pick</button></td>
+            <td><button class="btn btn-secondary" @onclick="@ClearPhoto">Clear</button></td>
+        </tr>
+        <tr>
+            <td colspan="3" >                   
+                <img src="@honeyDo.Image" width="250" />
+            </td>
+        </tr>      
+    </table>  
+@{#endif}
+    <p></p>        
+    <button class="btn btn-primary" @onclick="@Save">Save</button>
+    <button class="btn btn-danger" @onclick="@Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    private HoneyDoModel honeyDo;
+    [Parameter]
+    public string? Id { get; set; }
+    private EditForm? form { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Id == null) 
+        {
+            Id = "0";
+        }
+        if (!NavigationManager.Uri.Contains("add"))
+        {            
+            var id = int.Parse(Id);
+            honeyDo = HoneyDoService.GetModelById(id, LocalStorage);        
+        }  
+        if (honeyDo == null)
+        {
+            honeyDo = HoneyDoService.AddItem();
+        }
+    }
+
+    private async void TakePhoto()
+    {
+        honeyDo.Image = await PhotoManager.TakePhotoAsync();
+        StateHasChanged(); 
+    }
+
+    private async void PickPhoto()
+    {
+        honeyDo.Image = await PhotoManager.PickPhotoAsync();
+        StateHasChanged(); 
+    }
+
+    private void ClearPhoto()
+    {   
+        honeyDo.Image = "_content/HoneyDo.Shared/placeholder-image.jpg";
+        StateHasChanged(); 
+    }
+
+    private void Save()
+    {     
+        if (form.EditContext.Validate())
+        {
+            HoneyDoService.SaveModel(LocalStorage);
+            NavigationManager.NavigateTo("/");
+        }
+    }
+    private void Cancel()
+    {
+        HoneyDoService.ReloadModel(LocalStorage);
+        NavigationManager.NavigateTo("/");
+
+    }
+}
+
+
