@@ -1,36 +1,22 @@
 ﻿@page "/"
-@using Shared.Services
-@using Shared.Models
-@using Shared.Interfaces
-@using Microsoft.AspNetCore.Components.QuickGrid
+@using HoneyDo.Shared.Services
+@using HoneyDo.Shared.Models
+@using HoneyDo.Shared.Interfaces
+@using HoneyDo.Shared.Components
 @inject IFormFactor FormFactor
 @inject ILocalStorage LocalStorage
 @inject NavigationManager NavigationManager
 
 <PageTitle>Upcoming "Honey Do" Items</PageTitle>
 
-<h3>Overdue & Upcoming Tasks</h3>
+<h3>Tasks Due</h3>
 
-<QuickGrid Items="@filteredHoneyDos" class="quickgrid">
-    <TemplateColumn Title="Task" Sortable="true">
-        <u>@context.Task</u>
-        <div class="click-area" @onclick="() => Edit(context)"></div>
-    </TemplateColumn>
-    <PropertyColumn Property="@(item => item.DueDate)" Format="yyyy-MM-dd" Sortable="true" Title="Due"/>    
-    <TemplateColumn Title="Complete?">
-        <input type="checkbox" @bind="@context.IsComplete" @onclick="() => Complete(context)" />
-    </TemplateColumn>
-    @{#if !ANDROID && !IOS }
-    <PropertyColumn Property="@(item => item.Description)" Sortable="true" />
-    <PropertyColumn Property="@(item => item.AssignedTo)" Sortable="true" Title="Assigned To"/>
-    @{#endif}
-</QuickGrid>
+<MyQuickGrid HoneyDos="@filteredHoneyDos" />
 
 @code {
 
     private IQueryable<HoneyDoModel> honeyDos;
     private IQueryable<HoneyDoModel> filteredHoneyDos;
-    private HoneyDoModel? selected;
     private bool showCompleted = false;
 
     protected override void OnInitialized()
@@ -44,26 +30,10 @@
         filteredHoneyDos = honeyDos;
     }
 
-    private void Edit(HoneyDoModel model)
-    {
-        selected = model;
-        NavigationManager.NavigateTo($"/edit/{model.Id}");
-    }
-
+  
     private void Add()
     {        
         NavigationManager.NavigateTo($"/add");
-    }
-
-    private void Save()
-    {
-        HoneyDoService.SaveModel(LocalStorage);
-    }
-
-    private void Complete(HoneyDoModel model)
-    {
-        model.IsComplete = !model.IsComplete;
-        Save();
     }
 
     private void FilterChanged()

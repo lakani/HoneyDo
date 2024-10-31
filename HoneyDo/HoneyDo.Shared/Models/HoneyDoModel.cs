@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HoneyDo.Shared.Models
 {
-    internal class HoneyDoModel 
+    public class HoneyDoModel 
     {
         public int Id { get; set; } = 0; 
         [Required]

@@ -1,0 +1,43 @@
+﻿@using Shared.Models
+@using Shared.Interfaces
+@using Shared.Services
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject ILocalStorage LocalStorage
+@inject NavigationManager NavigationManager
+
+
+<QuickGrid Items="@honeyDos" class="quickgrid">
+    <TemplateColumn Title="Task" Sortable="true">
+        @context.Task
+        <div class="click-area" @onclick="() => Edit(context)"></div>
+    </TemplateColumn>
+    <PropertyColumn Property="@(item => item.DueDate)" Format="yyyy-MM-dd" Sortable="true" />
+     <TemplateColumn Title="Complete?">
+        <input type="checkbox" @bind="@context.IsComplete" @onclick="() => Complete(context)" />
+    </TemplateColumn>
+@{#if !ANDROID && !IOS }
+    <PropertyColumn Property="@(item => item.Description)" Sortable="true"/>
+    <PropertyColumn Property="@(item => item.AssignedTo)" Sortable="true"/>
+@{#endif}
+</QuickGrid>
+
+@code {
+    [Parameter]
+    public IQueryable<Shared.Models.HoneyDoModel>? honeyDos { get; set; }
+
+    private void Edit(HoneyDoModel model)
+    {
+        NavigationManager.NavigateTo($"/edit/{model.Id}");
+    }
+
+    private void Save()
+    {
+        HoneyDoService.SaveModel(LocalStorage);
+    }
+
+    private void Complete(HoneyDoModel model)
+    {
+        model.IsComplete = !model.IsComplete;
+        Save();
+    }
+}
