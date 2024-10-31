@@ -11,7 +11,6 @@
 
 <h3>All Tasks</h3>
 
-@* <button class="btn btn-primary" @onclick="Add">Add New Task</button> *@
 <p>
     Show completed tasks: <input type="checkbox" @onclick="FilterChanged" /> 
 </p>
@@ -32,12 +31,7 @@
 
         filteredHoneyDos = honeyDos.Where(item => !item.IsComplete);
     }
-
-    private void Add()
-    {        
-        NavigationManager.NavigateTo($"/add");
-    }
-       
+           
     private void FilterChanged()
     {        
         showCompleted = !showCompleted;
