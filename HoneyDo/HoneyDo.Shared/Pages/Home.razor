@@ -34,24 +34,6 @@
     private void Add()
     {        
         NavigationManager.NavigateTo($"/add");
-    }
-
-    private void FilterChanged()
-    {        
-        showCompleted = !showCompleted;
-        if (showCompleted)
-        {
-            //Show all
-            filteredHoneyDos = honeyDos
-                                .Where(item => item.DueDate <= DateTime.Now.Date)
-                                .Where(item => true);
-        }
-        else
-        {
-            filteredHoneyDos = honeyDos
-                                .Where(item => item.DueDate == DateTime.Now.Date)
-                                .Where(item => !item.IsComplete);
-        }        
-    }
+    }  
 
 }
