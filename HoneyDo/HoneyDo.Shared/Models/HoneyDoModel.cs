@@ -16,7 +16,8 @@ namespace HoneyDo.Shared.Models
         public string? Image { get; set; } = "_content/HoneyDo.Shared/placeholder-image.jpg";
         [Required]
         public bool IsComplete { get; set; } = false;
-        public DateTime? DueDate { get; set; } = DateTime.Now.AddDays(1);
+        [Required]
+        public DateTime DueDate { get; set; } = DateTime.Now.AddDays(1);
         public string? AssignedTo { get; set; } = "Nick";
         [Required]
         public string CreatedBy { get; set; } = "Beth";

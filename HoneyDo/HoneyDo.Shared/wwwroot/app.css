@@ -1,3 +1,5 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -50,10 +52,12 @@ h1:focus {
     border-color: #929292;
 }
 
+
 /* Default styles for QuickGrid */
 .quickgrid {
     width: 100%;
     overflow-x: auto;
+    font-size: 14px;
 }
 
     .quickgrid img {
@@ -61,10 +65,31 @@ h1:focus {
         height: auto;
     }
 
+u {
+    color: blue;
+}
+
+td {
+    position: relative;
+}
+
+tr:hover {
+    background-color: rgba(0, 0, 1, 0.1);
+}
+
+.click-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
 /* Mobile styles */
 @media (max-width: 600px) {
     .quickgrid {
-        font-size: 14px;
+        font-size: 12px;
     }
 
         .quickgrid input[type="text"],
@@ -72,23 +97,7 @@ h1:focus {
         .quickgrid input[type="checkbox"] {
             width: 100%;
             box-sizing: border-box;
-        }
-
-        .quickgrid .fancy-table {
-            display: block;
-            width: 100%;
-            overflow-x: auto;
-        }
-
-            .quickgrid .fancy-table th,
-            .quickgrid .fancy-table td {
-                display: block;
-                width: 100%;
-            }
-
-            .quickgrid .fancy-table th {
-                text-align: left;
-            }
+        }       
 }
 
 .loading-progress {
