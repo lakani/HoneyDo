@@ -12,7 +12,7 @@
 
 <h3>Edit Task</h3>
 
-<EditForm class="form-control" Model="@honeyDo" @ref=form>
+<EditForm class="form-control-sm" Model="@honeyDo" @ref=form>
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -22,21 +22,20 @@
     </div>
     <div class="form-group">
         <label class="col-form-label" for="Description">Description</label>
-        <InputText id="Description" class="form-control" @bind-Value="@honeyDo.Description" />
+        <InputTextArea id="Description" class="form-control" @bind-Value="@honeyDo.Description" />
     </div>
     <div class="form-group">
         <label class="col-form-label" for="DueDate">Due Date</label>
-        <InputDate id="DueDate" class="form-control" @bind-Value="@honeyDo.DueDate" />
+        <InputDate id="DueDate"  class="form-control" @bind-Value="@honeyDo.DueDate" />
     </div>
-    <p>
+    <div class="form-group">
         <label class="col-form-label" for="IsComplete">Completed?</label>
-        <InputCheckbox id="IsComplete" @bind-Value="@honeyDo.IsComplete" />
-    </p>
-
+        <InputCheckbox id="IsComplete" class="form-check-inline" @bind-Value="@honeyDo.IsComplete" />
+    </div>
     @{#if ANDROID || IOS || WINDOWS }
     <table>
         <tr>
-            <td>
+            <td >
                 @{#if ANDROID || IOS }
                 <button class="btn btn-secondary" @onclick="@TakePhoto">Photo</button>
                 @{#endif}
