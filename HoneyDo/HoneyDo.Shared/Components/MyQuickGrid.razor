@@ -11,10 +11,12 @@
     <p>No tasks due. Enjoy the day! 😎</p>
 }
 <QuickGrid Items="@honeyDos" class="quickgrid">
+@{#if ANDROID || IOS || WINDOWS || MACCATALYST }
     <TemplateColumn>
         <img class="img-thumbnail" style="width:100px" src="@context.Image" alt="Card image">
         <div class="click-area" @onclick="() => Edit(context)"></div>
     </TemplateColumn>
+@{#endif}
     <TemplateColumn Title="Task" Sortable="true">
         @context.Task
         <div class="click-area" @onclick="() => Edit(context)"></div>
