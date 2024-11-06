@@ -11,7 +11,11 @@
 
 <h3>Tasks Due</h3>
 
-<MyQuickGrid HoneyDos="@filteredHoneyDos" />
+@{ #if ANDROID || IOS } 
+    <MyCardView HoneyDos="@filteredHoneyDos" />
+@{ #else }
+    <MyQuickGrid HoneyDos="@filteredHoneyDos" />
+@{ #endif }
 
 @code {
 
@@ -25,10 +29,4 @@
                                   .Where(item => !item.IsComplete)             
                                   .OrderBy(item => item.DueDate);                                          
     }
-  
-    private void Add()
-    {        
-        NavigationManager.NavigateTo($"/add");
-    }  
-
 }

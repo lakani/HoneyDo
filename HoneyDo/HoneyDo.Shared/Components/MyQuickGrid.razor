@@ -6,7 +6,15 @@
 @inject NavigationManager NavigationManager
 
 
+@if (honeyDos == null || honeyDos.Count() == 0)
+{
+    <p>No tasks due. Enjoy the day! 😎</p>
+}
 <QuickGrid Items="@honeyDos" class="quickgrid">
+    <TemplateColumn>
+        <img class="img-thumbnail" style="width:100px" src="@context.Image" alt="Card image">
+        <div class="click-area" @onclick="() => Edit(context)"></div>
+    </TemplateColumn>
     <TemplateColumn Title="Task" Sortable="true">
         @context.Task
         <div class="click-area" @onclick="() => Edit(context)"></div>
@@ -15,10 +23,8 @@
      <TemplateColumn Title="Complete?">
         <input type="checkbox" @bind="@context.IsComplete" @onclick="() => Complete(context)" />
     </TemplateColumn>
-@{#if !ANDROID && !IOS }
     <PropertyColumn Property="@(item => item.Description)" Sortable="true"/>
     <PropertyColumn Property="@(item => item.AssignedTo)" Sortable="true"/>
-@{#endif}
 </QuickGrid>
 
 @code {

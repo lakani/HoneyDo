@@ -1,0 +1,79 @@
+﻿@using Shared.Models
+@using Shared.Interfaces
+@using Shared.Services
+@inject NavigationManager NavigationManager
+
+@if (honeyDos == null || honeyDos.Count() == 0)
+{
+    <p>No tasks due. Enjoy the day! 😎</p>
+}
+@foreach (var honeyDo in honeyDos)
+{
+    <div class="card @GetCardBorderColor(honeyDo)" >
+        <div class="card-body @GetCardBodyColor(honeyDo)">
+            <h4 class="card-title">@honeyDo.Task</h4>
+            <p class="card-text">@honeyDo.Description</p>
+            <p class="card-text">Due: @honeyDo.DueDate.ToShortDateString()</p>
+            @if (honeyDo.IsComplete)
+            {
+                <p class="card-text">Completed</p>
+            }
+            else
+            {
+                <p class="card-text">Not completed</p>
+            }
+            <img class="card-img-bottom img-thumbnail" style="width:100px" src="@honeyDo.Image" alt="Card image">
+            <a href="#" class="stretched-link" @onclick="() => Edit(honeyDo.Id)"></a>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public IQueryable<Shared.Models.HoneyDoModel>? honeyDos { get; set; }
+
+    private void Edit(int id)
+    {
+        NavigationManager.NavigateTo($"/edit/{id}");
+    }
+
+    public string GetCardBorderColor(HoneyDoModel honeyDo)
+    {
+        if (honeyDo.IsComplete)
+        {
+            return " border-secondary mb-3";
+        }
+        else if (honeyDo.DueDate.Date < DateTime.Now.Date)
+        {
+            return " border-danger mb-3";
+        }
+        else if (honeyDo.DueDate.Date == DateTime.Now.Date)
+        {
+            return " border-warning mb-3";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public string GetCardBodyColor(HoneyDoModel honeyDo)
+    {
+        if (honeyDo.IsComplete)
+        {
+            return " text-secondary";
+        }
+        else if (honeyDo.DueDate.Date < DateTime.Now.Date)
+        {
+            return " text-danger";
+        }
+        else if (honeyDo.DueDate.Date == DateTime.Now.Date)
+        {
+            return " text-primary";
+        }
+        else
+        {
+            return "";
+        }
+    }
+}

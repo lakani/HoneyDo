@@ -14,7 +14,11 @@
 <p>
     Show completed tasks: <input type="checkbox" @onclick="FilterChanged" /> 
 </p>
-<MyQuickGrid HoneyDos="@filteredHoneyDos" />
+@{ #if ANDROID || IOS } 
+    <MyCardView HoneyDos="@filteredHoneyDos" />
+@{ #else }
+    <MyQuickGrid HoneyDos="@filteredHoneyDos" />
+@{ #endif }
 
 @code {
 

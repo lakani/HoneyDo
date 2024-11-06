@@ -53,7 +53,6 @@ h1:focus {
 }
 
 
-/* Default styles for QuickGrid */
 .quickgrid {
     width: 100%;
     overflow-x: auto;
@@ -65,18 +64,6 @@ h1:focus {
         height: auto;
     }
 
-u {
-    color: blue;
-}
-
-td {
-    position: relative;
-}
-
-tr:hover {
-    background-color: rgb(250, 90, 6, 0.15);
-}
-
 .click-area {
     position: absolute;
     top: 0;
@@ -85,6 +72,18 @@ tr:hover {
     bottom: 0;
     cursor: pointer;
 }
+
+    .quickgrid u {
+        color: blue;
+    }
+
+    .quickgrid td {
+        position: relative;
+    }
+
+    .quickgrid tr:hover {
+        background-color: rgb(250, 90, 6, 0.15);
+    }
 
 /* Mobile styles */
 @media (max-width: 600px) {
