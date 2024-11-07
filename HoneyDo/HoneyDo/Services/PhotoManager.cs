@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Maui.Graphics.Platform;
+using System.Diagnostics;
 
 namespace HoneyDo.Services
 {
@@ -32,12 +33,31 @@ namespace HoneyDo.Services
         {
             if (photo != null)
             {
-                using Stream sourceStream = await photo.OpenReadAsync();
-
-                //razor component needs a base64 encoded string so it can display the image in <img /> tag
-                return GetImageString(sourceStream);
+                using (Stream sourceStream = await photo.OpenReadAsync())
+                {
+#if (ANDROID || IOS)
+                   
+                    using (var newStream = DownsizeImage(sourceStream))
+                    {
+                        return GetImageString(newStream);
+                    }                    
+#else
+                    return GetImageString(sourceStream);
+#endif
+                }
             }
             return "";
-        }   
+        }        
+        static Stream? DownsizeImage(Stream sourceStream)
+        {
+            var image = PlatformImage.FromStream(sourceStream);
+            if (image != null)
+            {
+                var newImage = image.Downsize(250, true);
+                return newImage.AsStream();
+            }
+            return null;
+        }
+
     }
 }
