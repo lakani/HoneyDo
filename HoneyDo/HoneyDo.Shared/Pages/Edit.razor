@@ -18,7 +18,7 @@
 
     <div class="form-group">
         <label class="col-form-label" for="Task">Task</label>
-        <InputText id="Task" class="form-control" @bind-Value="@honeyDo.Task" />
+        <InputText id="Task" @ref="taskBox" class="form-control" @bind-Value="@honeyDo.Task" />
     </div>
     <div class="form-group">
         <label class="col-form-label" for="Description">Description</label>
@@ -60,7 +60,15 @@
     [Parameter]
     public string? Id { get; set; }
     private EditForm? form { get; set; }
+    private InputText taskBox;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await taskBox.Element.Value.FocusAsync();
+        }
+   }
     protected override void OnInitialized()
     {
         if (Id == null) 

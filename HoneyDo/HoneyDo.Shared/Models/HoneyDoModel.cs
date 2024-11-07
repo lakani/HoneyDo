@@ -11,7 +11,7 @@ namespace HoneyDo.Shared.Models
     {
         public int Id { get; set; } = 0; 
         [Required]
-        public string Task { get; set; } = "New Task";
+        public string Task { get; set; } = "";
         public string? Description { get; set; }
         public string? Image { get; set; } = "_content/HoneyDo.Shared/placeholder-image.jpg";
         [Required]
