@@ -18,7 +18,7 @@
     </TemplateColumn>
 @{#endif}
     <TemplateColumn Title="Task" Sortable="true">
-        @context.Task
+        <div class="@GetTaskColor(context)">@context.Task</div>
         <div class="click-area" @onclick="() => Edit(context)"></div>
     </TemplateColumn>
     <PropertyColumn Property="@(item => item.DueDate)" Format="yyyy-MM-dd" Sortable="true" />
@@ -47,5 +47,21 @@
     {
         model.IsComplete = !model.IsComplete;
         Save();
+    }
+
+    public string GetTaskColor(HoneyDoModel honeyDo)
+    {
+        if (honeyDo.IsComplete)
+        {
+            return " text-secondary";
+        }
+        else if (honeyDo.DueDate.Date < DateTime.Now.Date)
+        {
+            return " text-danger";
+        }
+        else
+        {
+            return "";
+        }
     }
 }
