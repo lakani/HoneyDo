@@ -9,7 +9,6 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.Services.AddBlazoredLocalStorageAsSingleton();
 
 // Add device-specific services used by the HoneyDo.Shared project
-builder.Services.AddSingleton<IFormFactor, FormFactor>();
 builder.Services.AddSingleton<ILocalStorage, LocalStorage>();
 builder.Services.AddSingleton<IPhotoManager, PhotoManager>();
 
