@@ -34,7 +34,16 @@
 
     private void Edit(int id)
     {
-        NavigationManager.NavigateTo($"/edit/{id}");
+        //NavigationManager.NavigateTo($"/edit/{id}");
+        try{
+            NavigationManager.NavigateTo("/TestNavigation");
+
+        } catch (Exception exception)
+        {
+            
+        }
+        
+
     }
 
     public string GetCardBorderColor(HoneyDoModel honeyDo)

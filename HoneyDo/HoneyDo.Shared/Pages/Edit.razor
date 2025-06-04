@@ -6,7 +6,7 @@
 @inject NavigationManager NavigationManager
 @inject ILocalStorage LocalStorage
 @inject IPhotoManager PhotoManager
-
+@layout HoneyDo.Shared.Layout.LoginLayout
 
 <PageTitle>"Honey Do"" Task</PageTitle>
 
@@ -94,8 +94,9 @@
 
     private async void PickPhoto()
     {
-        honeyDo.Image = await PhotoManager.PickPhotoAsync();
-        StateHasChanged(); 
+        NavigationManager.NavigateTo("/TestNavigation");
+        //honeyDo.Image = await PhotoManager.PickPhotoAsync();
+        //StateHasChanged(); 
     }
 
     private void ClearPhoto()
